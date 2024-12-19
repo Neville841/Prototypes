@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.Serialization;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -16,14 +10,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            //if (applicationIsQuitting)
-            //{
-            //    Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
-            //        "' already destroyed on application quit." +
-            //        " Won't create again - returning null.");
-            //    return null;
-            //}
-
             lock (_lock)
             {
                 if (_instance == null)
@@ -36,23 +22,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                             " - there should never be more than 1 singleton!" +
                             " Reopening the Init scene and destroying all instances");
 
-                        //var allInstances = FindObjectsOfType(typeof(T));
-                        //for (int i = 0; i < allInstances.Length; i++)
-                        //{
-                        //    Destroy(allInstances[i]);
-                        //}
                         return null;
                     }
                 }
                 return _instance;
             }
         }
-    }
-
-    private static bool applicationIsQuitting = false;
-
-    public void OnDestroy()
-    {
-        applicationIsQuitting = true;
     }
 }
